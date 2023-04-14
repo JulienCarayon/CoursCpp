@@ -1,3 +1,0 @@
-[submodule "displayer/inc/paho.mqtt.cpp"]
-	path = displayer/inc/paho.mqtt.cpp
-	url = git@github.com:eclipse/paho.mqtt.cpp.git
