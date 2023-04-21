@@ -35,8 +35,6 @@ void MainWindow::browseFile()
     ui->plainTextEdit->setPlainText(decoded_message);
 }
 
-
-
 QString decode_message(QString image_path) {
     // Ouvre l'image
     QImage image(image_path);
@@ -102,43 +100,3 @@ QString decode_message(QString image_path) {
     message = message.replace(message_prefix, "").left(message_length);
     return message;
 }
-
-
-
-
-//string decode_message(const string& image_path) {
-//    qDebug() << "Function called";
-//    //void decode_message(void) {
-//    // Ouvre l'image en tant que fichier binaire
-//    ifstream image_file(image_path, ios::binary);
-//    if (!image_file.is_open()) {
-//        cerr << "Impossible d'ouvrir le fichier d'image." << endl;
-//        return "";
-//    }
-//    qDebug() << "After loading file";
-//    // Lit l'en-tête de l'image pour obtenir sa taille
-//    char header[54];
-//    image_file.read(header, 54);
-//    int image_size = *(int*)&header[34];
-//    // Alloue un tampon pour stocker les données de l'image
-//    char* image_data = new char[image_size];
-//    // Lit les données de l'image dans le tampon
-//    image_file.read(image_data, image_size);
-//    // Extrait le message caché dans l'image
-//    qDebug() << "After reading file";
-//    string message;
-//    for (long i = 0; i < image_size; i += 3) {
-//        bitset<8> b(image_data[i]);
-//        bitset<8> g(image_data[i+1]);
-//        bitset<8> r(image_data[i+2]);
-//        message += (char)r[0] + '0';
-//        message += (char)g[0] + '0';
-//        message += (char)b[0] + '0';
-//    }
-//    // Libère le tampon de données de l'image
-//    delete[] image_data;
-//    // Retourne le message caché dans l'image
-////    return message;
-//    qDebug() << "Le message est"<<QString::fromStdString(message);
-//    return image_path;
-//}
