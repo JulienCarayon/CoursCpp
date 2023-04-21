@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>483</width>
+    <height>416</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -27,14 +27,14 @@
      <item>
       <widget class="QLabel" name="label_caca">
        <property name="text">
-        <string>CACA</string>
+        <string>Message décodé</string>
        </property>
       </widget>
      </item>
      <item>
       <widget class="QPlainTextEdit" name="plainTextEdit">
        <property name="plainText">
-        <string>CACA</string>
+        <string>Le message décodé apparaitra ici</string>
        </property>
       </widget>
      </item>
@@ -53,7 +53,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>483</width>
      <height>22</height>
     </rect>
    </property>
@@ -69,11 +69,11 @@
    <slot>browseFile()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>205</x>
-     <y>311</y>
+     <x>206</x>
+     <y>271</y>
     </hint>
     <hint type="destinationlabel">
-     <x>499</x>
+     <x>471</x>
      <y>329</y>
     </hint>
    </hints>
