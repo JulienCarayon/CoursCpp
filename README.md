@@ -47,5 +47,5 @@ cd TP_MQTT/message_sender/build
   cd TP_Steganography/Decrypt_python
   python3 decrypt_png.py
   ```
-  If you want to run the C++ script, use Qt to rn the project
+  If you want to run the C++ script, use Qt to run the project
 
