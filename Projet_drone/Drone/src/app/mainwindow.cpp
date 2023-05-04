@@ -1,10 +1,5 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "QDebug"
-#include "QFileDialog"
-#include <QString>
-#include <QImage>
-#include <QRegularExpression>
 
 using namespace std;
 
@@ -13,6 +8,7 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    //attrInit();
 }
 
 MainWindow::~MainWindow()
@@ -99,4 +95,9 @@ QString decode_message(QString image_path) {
     // Récupère le message caché dans l'image
     message = message.replace(message_prefix, "").left(message_length);
     return message;
+}
+
+void attrInit()
+{
+
 }
