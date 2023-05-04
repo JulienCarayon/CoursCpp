@@ -9,6 +9,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     //attrInit();
+    connectSignalsSlots();
 }
 
 MainWindow::~MainWindow()
@@ -16,13 +17,29 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+void MainWindow::connectSignalsSlots()
+{
+
+    connect(ui->pushButton_2, SIGNAL(pressed()), this, SLOT(browseFile()));
+}
+
+
+
 void MainWindow::browseFile()
 {
     QString decode_message(QString image_path);
 
     QString fileName = QFileDialog::getOpenFileName(this, tr("Open File"),
-                                                    "/home",
+                                                    QDir::currentPath().remove("/bin/release"),
                                                     tr("Images (*.png)"));
+    if (fileName.isEmpty()) {
+        return;
+    }
+    QImage image(fileName);
+    // Convertir l'image en binaire
+    QByteArray imageData(reinterpret_cast<const char*>(image.bits()), image.byteCount());
+
+
     qDebug() << "Le fichier : " << fileName << " a été choisis";
     QString decoded_message = decode_message(fileName);
 

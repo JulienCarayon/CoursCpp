@@ -9,11 +9,14 @@
 #include <QObject>
 #include <QString>
 
+
+#include <QImage>
+
 #include <QDebug>
 #include "QDebug"
 #include "QFileDialog"
 #include <QString>
-#include <QImage>
+
 #include <QRegularExpression>
 
 /*---------------------------------------------------------------------------*/
@@ -75,6 +78,7 @@ private:
     /* Private Methods                                                       */
     /*-----------------------------------------------------------------------*/
     void attrInit();
+    void connectSignalsSlots();
 
 };
 #endif // MAINWINDOW_H
