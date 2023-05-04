@@ -33,12 +33,24 @@ void MainWindow::browseFile()
                                                     QDir::currentPath().remove("/bin/release"),
                                                     tr("Images (*.png)"));
     if (fileName.isEmpty()) {
+        QtWarningMsg("failed to load image");
         return;
     }
     QImage image(fileName);
     // Convertir l'image en binaire
     QByteArray imageData(reinterpret_cast<const char*>(image.bits()), image.byteCount());
 
+    QMqttClient client;
+    client.setHostname("broker.emqx.io");
+    client.setPort(1883);
+    client.connectToHost();
+
+    // Attente de la connexion au serveur MQTT
+
+    // Publier les données binaires sur un topic MQTT
+    QMqttTopicName topicName("/ynov/bordeaux/");
+    auto message = QMqttMessage();
+    client.publish(topicName, message);
 
     qDebug() << "Le fichier : " << fileName << " a été choisis";
     QString decoded_message = decode_message(fileName);

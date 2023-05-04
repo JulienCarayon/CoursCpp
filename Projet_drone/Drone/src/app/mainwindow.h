@@ -9,6 +9,8 @@
 #include <QObject>
 #include <QString>
 
+#include <QtMqtt/QtMqtt>
+#include <QtMqtt/QMqttClient>
 
 #include <QImage>
 
