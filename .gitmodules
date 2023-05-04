@@ -4,3 +4,9 @@
 [submodule "displayer/inc/paho.mqtt.cpp"]
 	path = displayer/inc/paho.mqtt.cpp
 	url = git@github.com:eclipse/paho.mqtt.cpp.git
+[submodule "TD_MQTT/message_sender/inc/paho.mqtt.cpp"]
+	path = TD_MQTT/message_sender/inc/paho.mqtt.cpp
+	url = git@github.com:eclipse/paho.mqtt.cpp.git
+[submodule "TD_MQTT/displayer/inc/paho.mqtt.cpp"]
+	path = TD_MQTT/displayer/inc/paho.mqtt.cpp
+	url = git@github.com:eclipse/paho.mqtt.cpp.git
