@@ -19,32 +19,37 @@ MainWindow::MainWindow(QWidget *parent)
     mqttManager = new MqttManager(this);
 
 //    attrInit();
-//    connectSignalsSlots();     //on connecte les signaux/slots
+    connectSignalsSlots();     //on connecte les signaux/slots
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+    delete mqttManager;
 //    MqttManager::quit();
 }
 
-//void MainWindow::connectSignalsSlots()
-//{
-//    connect(threadElement, &ThreadElement::my_signal, this, &MainWindow::spinBox);
-//}
+void MainWindow::connectSignalsSlots()
+{
+    QObject::connect(mqttManager, SIGNAL(lastMessage_signal(QString)), this, SLOT(fillRawMessage(QString)));
+}
 
 void MainWindow::Connect()
 {
     cout << "Coucou " << std::endl;
 
 
-
+    mqttManager->Qos = ui->spinBoxQos->value();
+    mqttManager->s_TOPIC = ui->lineEditTopic->text().toStdString();
+    mqttManager->s_ADDRESS = ui->lineEditBroker->text().toStdString();
+    mqttManager->s_CLIENT_ID = ui->lineEditClientId->text().toStdString();
+    qDebug() << (mqttManager->Qos);
+    qDebug() << QString::fromStdString(mqttManager->s_TOPIC);
+    qDebug() << QString::fromStdString(mqttManager->s_ADDRESS);
+    qDebug() << QString::fromStdString(mqttManager->s_CLIENT_ID);
     mqttManager->start();
     mqttManager->toggleState();
     MainWindow::updateButtonState(mqttManager->getState());
-
-
-
 
 //    QString decode_message(QString image_path);
 
@@ -56,8 +61,9 @@ void MainWindow::Connect()
 
 //    qDebug() << "Le message caché est" << decoded_message<<"";
 
-//                                                             ui->plainTextEditRawMessage->setPlainText(decoded_message);
+    //                                                             ui->plainTextEditRawMessage->setPlainText(decoded_message);
 }
+
 
 void MainWindow::updateButtonState(MqttManager::State state){
     QString s_InvCurrentState;
@@ -140,15 +146,17 @@ QString decode_message(QString image_path) {
     return message;
 }
 
-//void MainWindow::on_lineEditTopic_editingFinished()
-//{
-//}
+void MainWindow::fillRawMessage(QString message){
+    qDebug()<< "fillRawMessage : " << message;
+    ui->plainTextEditRawMessage->setPlainText(message);
 
-//void MainWindow::on_lineEditBroker_editingFinished()
-//{
-//}
+}
+void MainWindow::on_lineEditTopic_editingFinished()
+{
 
-//void MainWindow::on_lineEditCliendId_editingFinished()
-//{
-//}
+}
+
+
+
+
 

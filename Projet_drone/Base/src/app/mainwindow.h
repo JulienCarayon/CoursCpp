@@ -23,14 +23,18 @@ public:
 public slots:
     void Connect(void);
 
+    void fillRawMessage(QString message);
 private slots:
-    void on_lineEditTopic_editingFinished();
+
 
 private:
     Ui::BaseWindow *ui;
 //    void attrInit();
-//    void connectSignalsSlots();
+    void connectSignalsSlots();
 
     void updateButtonState(MqttManager::State currentState);
+    void on_lineEditTopic_editingFinished(void);
+    void on_lineEditBroker_editingFinished(void);
+    void on_lineEditCliendId_editingFinished(void);
 };
 #endif // MAINWINDOW_H

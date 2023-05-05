@@ -5,7 +5,7 @@ DEPENDPATH  += $$PWD
 WIDGETS_DIR = "$$PWD/widgets"
 
 INCLUDEPATH += \
-    $$PWD/lib/paho.mqtt.cpp/include\
+    $$PWD/lib/paho.mqtt.cpp/
 #    $$PWD/cmp/thread_element/
 
 

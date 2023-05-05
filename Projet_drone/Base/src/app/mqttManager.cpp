@@ -1,12 +1,24 @@
 #include "mqttManager.h"
+
+
+#include <QByteArray>
+#include <QPixmap>
+#include <QBuffer>
+#include <QDir>
+
+
 using namespace std;
+
+string lastMessage = "";
 
 class Callback : public virtual mqtt::callback {
 public:
     void message_arrived(mqtt::const_message_ptr msg) override {
 
         std::cout << "Message received on topic " << msg->get_topic() << std::endl;
-        cout << "Message content: " << msg->to_string() << std::endl;
+        lastMessage = msg->to_string();
+//        cout << "Message content <START>" << msg->to_string() <<"<END>"<< std::endl;
+
     }
 
     virtual void connection_lost(const std::string& cause_ref) override {
@@ -14,6 +26,7 @@ public:
         if (!cause_ref.empty())
             std::cout << "\tcause: " << cause_ref << std::endl;
     }
+
 };
 
 
@@ -54,7 +67,7 @@ void MqttManager::run()
 {
     std::cout << "MqttManager started"<< std::endl;
     mqtt::async_client client_t(MqttManager::s_ADDRESS, MqttManager::s_CLIENT_ID);
-
+    string previousMessage = lastMessage;
     try
     {
         while(1){
@@ -67,7 +80,7 @@ void MqttManager::run()
 
                 client_t.connect(conn_opts)->wait();
 
-                mqtt::topic mqtt_topic(client_t, MqttManager::s_TOPIC, 0);
+                mqtt::topic mqtt_topic(client_t, MqttManager::s_TOPIC, MqttManager::Qos);
                 mqtt_topic.subscribe()->wait();
                 MqttManager::setState(Connected);
             }
@@ -77,6 +90,13 @@ void MqttManager::run()
                 MqttManager::quit();
                 break;
             }
+
+            if(lastMessage != previousMessage){
+                 cout << "<NEW Message incoming START>" << lastMessage <<"<NEW Message incoming END>"<< std::endl;
+//                MqttManager::binaryToPngFile(QByteArray::fromStdString(lastMessage),QDir::currentPath().remove("/bin/release"));
+                 emit MqttManager::lastMessage_signal(QString::fromStdString(lastMessage));
+            }
+            previousMessage = lastMessage;
 //            std::cout << "\nMqttManager State:  "<< MqttManager::getState() << std::endl;
         }
     }
@@ -87,3 +107,29 @@ void MqttManager::run()
 
 }
 
+
+
+QPixmap MqttManager::binaryToPixmap(const QByteArray& binaryData)
+{
+    QPixmap pixmap;
+    pixmap.loadFromData(binaryData, "PNG");
+    return pixmap;
+}
+
+bool MqttManager::binaryToPngFile(const QByteArray& binaryData, const QString& filePath)
+{
+    QPixmap pixmap;
+    if (!pixmap.loadFromData(binaryData, "PNG"))
+    {
+        qWarning() << "Failed to load image from binary data.";
+        return false;
+    }
+
+    if (!pixmap.save(filePath, "PNG"))
+    {
+        qWarning() << "Failed to save PNG file.";
+        return false;
+    }
+
+    return true;
+}

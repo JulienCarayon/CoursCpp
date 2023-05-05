@@ -28,16 +28,19 @@ public:
     string s_ADDRESS;// = "tcp://broker.emqx.io:1883";
     string s_CLIENT_ID;// = "MQTT-Receiver";
     string s_TOPIC;// = "/ynov/bordeaux/";
+    uint8_t Qos = 0;
 
 
     State getState();
     void setState(State state);
-
-
-//signals:
-//    void my_signal(int i);
-
     void toggleState();
+
+    QPixmap binaryToPixmap(const QByteArray &binaryData);
+    bool binaryToPngFile(const QByteArray &binaryData, const QString &filePath);
+signals:
+    void lastMessage_signal(QString s_lastMessage);
+
+
 protected:
     void run(void);
 

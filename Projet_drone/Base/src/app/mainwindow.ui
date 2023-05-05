@@ -18,34 +18,8 @@
     <item row="0" column="0">
      <widget class="QWidget" name="widgetMqttSettings" native="true">
       <layout class="QGridLayout" name="gridLayout">
-       <item row="2" column="2">
-        <widget class="QLineEdit" name="lineEditClientId">
-         <property name="minimumSize">
-          <size>
-           <width>300</width>
-           <height>25</height>
-          </size>
-         </property>
-         <property name="text">
-          <string>JuDoJo</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="2">
-        <widget class="QLineEdit" name="lineEditTopic">
-         <property name="minimumSize">
-          <size>
-           <width>300</width>
-           <height>25</height>
-          </size>
-         </property>
-         <property name="text">
-          <string>/ynov/bordeaux/CoursCpp</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="1">
-        <spacer name="horizontalSpacerTopic">
+       <item row="2" column="1">
+        <spacer name="horizontalSpacerClientId">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
          </property>
@@ -57,10 +31,29 @@
          </property>
         </spacer>
        </item>
-       <item row="1" column="0">
-        <widget class="QLabel" name="labelTopic">
+       <item row="0" column="1">
+        <spacer name="horizontalSpacerBroker">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>77</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="2" column="2">
+        <widget class="QLineEdit" name="lineEditClientId">
+         <property name="minimumSize">
+          <size>
+           <width>300</width>
+           <height>25</height>
+          </size>
+         </property>
          <property name="text">
-          <string>Topic</string>
+          <string>JuDoJo</string>
          </property>
         </widget>
        </item>
@@ -77,7 +70,28 @@
          </property>
         </widget>
        </item>
-       <item row="3" column="0" colspan="2">
+       <item row="0" column="0">
+        <widget class="QLabel" name="labelBroker">
+         <property name="text">
+          <string>Broker Address: </string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="labelTopic">
+         <property name="text">
+          <string>Topic</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="labelClientId">
+         <property name="text">
+          <string>Cliend ID</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="0" colspan="2">
         <spacer name="horizontalSpacer_2">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
@@ -90,48 +104,61 @@
          </property>
         </spacer>
        </item>
-       <item row="2" column="0">
-        <widget class="QLabel" name="labelClientId">
-         <property name="text">
-          <string>Cliend ID</string>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="2">
-        <widget class="QPushButton" name="pushButton_2">
-         <property name="text">
-          <string>Connect</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="1">
-        <spacer name="horizontalSpacerBroker">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>77</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item row="0" column="0">
-        <widget class="QLabel" name="labelBroker">
-         <property name="text">
-          <string>Broker Address: </string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="1">
-        <spacer name="horizontalSpacerClientId">
+       <item row="1" column="1">
+        <spacer name="horizontalSpacerTopic">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
          </property>
          <property name="sizeHint" stdset="0">
           <size>
            <width>58</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="4" column="2">
+        <widget class="QPushButton" name="pushButton_2">
+         <property name="text">
+          <string>Connect</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="2">
+        <widget class="QLineEdit" name="lineEditTopic">
+         <property name="minimumSize">
+          <size>
+           <width>300</width>
+           <height>25</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>/ynov/bordeaux/CoursCpp</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="0">
+        <widget class="QLabel" name="labelQos">
+         <property name="text">
+          <string>QoS</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="2">
+        <widget class="QSpinBox" name="spinBoxQos">
+         <property name="maximum">
+          <number>2</number>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="1">
+        <spacer name="horizontalSpacer_3">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
            <height>20</height>
           </size>
          </property>
@@ -270,8 +297,8 @@
    <slot>Connect()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>478</x>
-     <y>155</y>
+     <x>518</x>
+     <y>189</y>
     </hint>
     <hint type="destinationlabel">
      <x>732</x>
