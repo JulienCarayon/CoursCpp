@@ -17,6 +17,8 @@ Each individual project can be build independently by following these commands:
   ./build.sh
   ```
 
+
+
   ```
   cd TP_MQTT/message_sender
   chmod +x build.sh
@@ -29,11 +31,20 @@ To run these you need by following these commands:
 cd TP_MQTT/displayer/build
 ./MQTT-Receiver
 ```
+Here a snapshot of the receiver :
+ ![Capture d’écran du 2023-05-05 10-15-13](https://user-images.githubusercontent.com/78759372/236409166-89ac835a-8cd0-4f82-a9fd-de4b644c637d.png)
 
 ```
 cd TP_MQTT/message_sender/build
 ./MQTT-Sender
 ```
+Here a snapshot of the message sender :
+![Capture d’écran du 2023-05-05 10-16-03](https://user-images.githubusercontent.com/78759372/236409375-72fa8f58-ed06-4295-8425-a54beeb3edef.png)
+
+WHat it looks like on another MQTT client :
+ <img width="927" alt="image" src="https://user-images.githubusercontent.com/78759372/236409496-55e30d8d-2d59-401d-bcb9-e348fa2364f8.png">
+
+
 ## TP_Steganography`
   run `pip install -r requirements.txt` to install python dependencies.
   Then you can run these commands to run the encrypt script : 
