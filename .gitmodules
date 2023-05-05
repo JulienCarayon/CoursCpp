@@ -10,3 +10,6 @@
 [submodule "TD_MQTT/displayer/inc/paho.mqtt.cpp"]
 	path = TD_MQTT/displayer/inc/paho.mqtt.cpp
 	url = git@github.com:eclipse/paho.mqtt.cpp.git
+[submodule "Projet_drone/Base/src/app/lib/paho.mqtt.cpp"]
+	path = Projet_drone/Base/src/app/lib/paho.mqtt.cpp
+	url = git@github.com:eclipse/paho.mqtt.cpp.git

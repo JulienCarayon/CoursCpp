@@ -1,16 +1,50 @@
-#ifndef MQTTMANAGER_H
-#define MQTTMANAGER_H
+#ifndef THREADELEMENT_H
+#define THREADELEMENT_H
 
-#include <QtMqtt/QMqttClient>
-#include <QCoreApplication>
-#include <QDateTime>
-
+#include <QProcess>
+#include <QThread>
+#include <QDebug>
+#include <mqtt/async_client.h>
 using namespace std;
 
-class MqttManager
+
+
+
+class MqttManager: public QThread
 {
+    Q_OBJECT
+
+
 public:
-    MqttManager();
+
+    typedef enum{
+        Connect         = 0,
+        Connected       = 1,
+        Disconnect      = 2,
+        Disconnected    = 3
+    }State;
+
+    MqttManager(QObject *parent);
+    string s_ADDRESS;// = "tcp://broker.emqx.io:1883";
+    string s_CLIENT_ID;// = "MQTT-Receiver";
+    string s_TOPIC;// = "/ynov/bordeaux/";
+
+
+    State getState();
+    void setState(State state);
+
+
+//signals:
+//    void my_signal(int i);
+
+    void toggleState();
+protected:
+    void run(void);
+
+private:
+//    int _counter;
+    State currentState = Disconnected;
+
 };
 
-#endif // MQTTMANAGER_H
+#endif // THREADELEMENT_H

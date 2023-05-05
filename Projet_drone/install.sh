@@ -1,15 +1,12 @@
-sudo rm -rf
+sudo apt install doxygen graphviz libssl-dev build-essential gcc make cmake cmake-gui cmake-curses-gui
 
-sudo apt install qtbase5-private-dev
-
-git clone git@github.com:qt/qtmqtt.git
-
-cd qtmqtt/
-
-git checkout 5.15.2
-
-sudo qmake
-
-sudo make
-
-sudo make install
+git submodule init
+git submodule update --init --recursive
+cd Base/src/app/lib/paho.mqtt.cpp/
+eval "./install_paho_mqtt_c.sh"
+cmake -Bbuild -H. -DPAHO_BUILD_STATIC=ON \
+    -DPAHO_BUILD_DOCUMENTATION=TRUE -DPAHO_BUILD_SAMPLES=TRUE
+sudo cmake --build build/ --target install
+cmake -Bbuild -H. -DPAHO_WITH_SSL=ON -DPAHO_ENABLE_TESTING=OFF -DPAHO_BUILD_DEB_PACKAGE=ON
+cmake --build build
+sudo ldconfig

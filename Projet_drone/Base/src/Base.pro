@@ -8,7 +8,6 @@ TARGET = BASE
 TEMPLATE = app
 
 QT += core gui printsupport network mqtt
-
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 # greaterThan(QT_MAJOR_VERSION, 4): QT += multimedia
 
@@ -29,7 +28,7 @@ MOC_DIR		= "$${BUILD_DIR}"
 OBJECTS_DIR	= "$${BUILD_DIR}"
 PRECOMPILED_DIR = "$$OBJECTS_DIR"
 
-CONFIG += debug_and_release
+CONFIG += debug_and_release c++17
 CONFIG(debug, debug|release) {
         DESTDIR = "$$BIN_DIR/debug"
         # On ne copie pas les dll en debug

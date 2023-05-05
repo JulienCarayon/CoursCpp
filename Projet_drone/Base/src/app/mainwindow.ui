@@ -164,6 +164,9 @@
            <height>130</height>
           </size>
          </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
          <property name="plainText">
           <string>Not connected.
 </string>
@@ -223,6 +226,9 @@
            <height>0</height>
           </size>
          </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
          <property name="plainText">
           <string>Not connected.
 </string>
@@ -261,15 +267,15 @@
    <sender>pushButton_2</sender>
    <signal>pressed()</signal>
    <receiver>BaseWindow</receiver>
-   <slot>browseFile()</slot>
+   <slot>Connect()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>206</x>
-     <y>271</y>
+     <x>478</x>
+     <y>155</y>
     </hint>
     <hint type="destinationlabel">
-     <x>471</x>
-     <y>329</y>
+     <x>732</x>
+     <y>135</y>
     </hint>
    </hints>
   </connection>
@@ -277,5 +283,6 @@
  <slots>
   <signal>browseFileClicked()</signal>
   <slot>browseFile()</slot>
+  <slot>Connect()</slot>
  </slots>
 </ui>
