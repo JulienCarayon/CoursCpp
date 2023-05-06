@@ -6,7 +6,7 @@ cd Base/src/app/lib/paho.mqtt.cpp/
 eval "./install_paho_mqtt_c.sh"
 cmake -Bbuild -H. -DPAHO_BUILD_STATIC=ON \
     -DPAHO_BUILD_DOCUMENTATION=TRUE -DPAHO_BUILD_SAMPLES=TRUE
-sudo cmake --build build/ --target install
+cmake --build build/ --target install
 cmake -Bbuild -H. -DPAHO_WITH_SSL=ON -DPAHO_ENABLE_TESTING=OFF -DPAHO_BUILD_DEB_PACKAGE=ON
 cmake --build build
 sudo ldconfig
