@@ -6,6 +6,11 @@
 #include <QBuffer>
 #include <QDir>
 
+#include <QImage>
+#include <QJsonObject>
+#include <QJsonDocument>  //pas utile ?
+#include <QByteArray>
+
 
 using namespace std;
 
@@ -95,9 +100,13 @@ void MqttManager::run()
                  cout << "<NEW Message incoming START>" << lastMessage <<"<NEW Message incoming END>"<< std::endl;
 //                MqttManager::binaryToPngFile(QByteArray::fromStdString(lastMessage),QDir::currentPath().remove("/bin/release"));
                  emit MqttManager::lastMessage_signal(QString::fromStdString(lastMessage));
+                 const QJsonObject Array = MqttManager::ObjectFromString(QString::fromStdString(lastMessage));
+                 MqttManager::fromJson(Array);
+                 emit MqttManager::lastMessageDecoded_signal(QString::fromStdString(s_DECODED_IMAGE_PATH));
+                 MqttManager::fromJson(Array);
+                 emit MqttManager::lastImage_signal(QString::fromStdString(s_DECODED_IMAGE_PATH));
             }
             previousMessage = lastMessage;
-//            std::cout << "\nMqttManager State:  "<< MqttManager::getState() << std::endl;
         }
     }
     catch (const mqtt::exception& exc_ref) {
@@ -107,29 +116,73 @@ void MqttManager::run()
 
 }
 
-
-
-QPixmap MqttManager::binaryToPixmap(const QByteArray& binaryData)
+QJsonObject MqttManager::ObjectFromString(const QString& in)
 {
-    QPixmap pixmap;
-    pixmap.loadFromData(binaryData, "PNG");
-    return pixmap;
+    QJsonObject obj;
+
+    QJsonDocument doc = QJsonDocument::fromJson(in.toUtf8());
+
+    // check validity of the document
+    if(!doc.isNull())
+    {
+        if(doc.isObject())
+        {
+            obj = doc.object();
+        }
+        else
+        {
+            qDebug() << "Document is not an object";
+        }
+    }
+    else
+    {
+        qDebug() << "Invalid JSON...\n" ;
+    }
+
+    return obj;
 }
 
-bool MqttManager::binaryToPngFile(const QByteArray& binaryData, const QString& filePath)
+
+void MqttManager::fromJson(const QJsonObject& json)
 {
-    QPixmap pixmap;
-    if (!pixmap.loadFromData(binaryData, "PNG"))
-    {
-        qWarning() << "Failed to load image from binary data.";
-        return false;
-    }
+    QByteArray imageDataDecoded = QByteArray::fromBase64(json["data"].toString().toUtf8());
+    QImage imageDecoded;
+    imageDecoded.loadFromData(imageDataDecoded, "PNG");
 
-    if (!pixmap.save(filePath, "PNG"))
-    {
-        qWarning() << "Failed to save PNG file.";
-        return false;
-    }
+    // Sauvegarde de l'image décodée dans un nouveau fichier PNG
+    QString newFilename = "decoded_image.png";
+    imageDecoded.save(newFilename, "PNG");
+}
 
-    return true;
+QString MqttManager::showData(QString inputImageFilename)
+{
+    QImage img(inputImageFilename);
+    QString binary_message;
+    for (int row = 0; row < img.height(); row++) {
+        for (int col = 0; col < img.width(); col++) {
+            QRgb rgb = img.pixel(col, row);
+            binary_message += QString::number(qRed(rgb) & 1);
+            if (binary_message.right(16) == "1111111111111110") {
+                 return binaryToString(binary_message.left(binary_message.length() - 16));
+            }
+            binary_message += QString::number(qGreen(rgb) & 1);
+            if (binary_message.right(16) == "1111111111111110") {
+                 return binaryToString(binary_message.left(binary_message.length() - 16));
+            }
+            binary_message += QString::number(qBlue(rgb) & 1);
+            if (binary_message.right(16) == "1111111111111110") {
+                 return binaryToString(binary_message.left(binary_message.length() - 16));
+            }
+        }
+    }
+    return binaryToString(binary_message);
+}
+
+QString MqttManager::binaryToString(QString binary)
+{
+    QString message;
+    for (int i = 0; i < binary.length(); i += 8) {
+        message += QChar(binary.mid(i, 8).toInt(nullptr, 2));
+    }
+    return message;
 }

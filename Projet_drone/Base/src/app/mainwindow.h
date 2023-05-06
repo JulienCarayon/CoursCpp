@@ -24,6 +24,8 @@ public slots:
     void Connect(void);
 
     void fillRawMessage(QString message);
+    void fillDecodedMessage(QString message);
+    void fillImage(QString s_filepath);
 private slots:
 
 
@@ -36,5 +38,7 @@ private:
     void on_lineEditTopic_editingFinished(void);
     void on_lineEditBroker_editingFinished(void);
     void on_lineEditCliendId_editingFinished(void);
+
+    QPicture createQPictureFromPNG(const QString &filePath);
 };
 #endif // MAINWINDOW_H

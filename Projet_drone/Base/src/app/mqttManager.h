@@ -35,19 +35,23 @@ public:
     void setState(State state);
     void toggleState();
 
-    QPixmap binaryToPixmap(const QByteArray &binaryData);
-    bool binaryToPngFile(const QByteArray &binaryData, const QString &filePath);
+    void fromJson(const QJsonObject &json);
+    QJsonObject ObjectFromString(const QString &in);
 signals:
     void lastMessage_signal(QString s_lastMessage);
-
+    void lastMessageDecoded_signal(QString s_lastDecodedMessage);
+    void lastImage_signal(const QString s_filepath);
 
 protected:
     void run(void);
 
 private:
 //    int _counter;
+    const string s_DECODED_IMAGE_PATH = "decoded_image.png";
     State currentState = Disconnected;
 
+    QString showData(QString inputImageFilename);
+    QString binaryToString(QString binary);
 };
 
 #endif // THREADELEMENT_H

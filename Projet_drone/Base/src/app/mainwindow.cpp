@@ -5,6 +5,8 @@
 #include "QFileDialog"
 #include <QString>
 #include <QImage>
+#include <QPainter>
+#include <QPicture>
 #include <QRegularExpression>
 #include <mqttManager.h>
 
@@ -32,6 +34,8 @@ MainWindow::~MainWindow()
 void MainWindow::connectSignalsSlots()
 {
     QObject::connect(mqttManager, SIGNAL(lastMessage_signal(QString)), this, SLOT(fillRawMessage(QString)));
+    QObject::connect(mqttManager, SIGNAL(lastMessageDecoded_signal(QString)), this, SLOT(fillDecodedMessage(QString)));
+    QObject::connect(mqttManager, SIGNAL(lastImage_signal(const QString)), this, SLOT(fillImage(const QString)));
 }
 
 void MainWindow::Connect()
@@ -68,10 +72,10 @@ void MainWindow::Connect()
 void MainWindow::updateButtonState(MqttManager::State state){
     QString s_InvCurrentState;
 
-    if(state == MqttManager::State::Connect | state == MqttManager::State::Connected){
+    if((state == MqttManager::State::Connect )|( state == MqttManager::State::Connected)){
         s_InvCurrentState="Disconnect";
     }
-    else if(state == MqttManager::State::Disconnect | state == MqttManager::State::Disconnected){
+    else if((state == MqttManager::State::Disconnect) | (state == MqttManager::State::Disconnected)){
         s_InvCurrentState="Connect";
     }
     else{
@@ -147,15 +151,41 @@ QString decode_message(QString image_path) {
 }
 
 void MainWindow::fillRawMessage(QString message){
-    qDebug()<< "fillRawMessage : " << message;
+//    qDebug()<< "fillRawMessage : " << message;
     ui->plainTextEditRawMessage->setPlainText(message);
 
+
 }
-void MainWindow::on_lineEditTopic_editingFinished()
+
+void MainWindow::fillImage(const QString s_filepath){
+    qDebug()<< " Image received in signal";
+    ui->labelImage->setPicture(MainWindow::createQPictureFromPNG(s_filepath));
+}
+
+void MainWindow::fillDecodedMessage(QString message){
+    qDebug()<< "fillDecodedMessage : " << message;
+    ui->plainTextEditDecodedMessage->setPlainText(message);
+
+}
+
+QPicture MainWindow::createQPictureFromPNG(const QString& filePath)
 {
+    // Charger l'image PNG dans un QImage
+    QImage image;
+    if (!image.load(filePath))
+    {
+        // Gérer les erreurs de chargement de l'image
+        return QPicture(); // Retourner une QPicture vide
+    }
 
+    // Créer une QPicture et dessiner l'image sur celle-ci
+    QPicture picture;
+    QPainter painter(&picture);
+    painter.drawImage(QPoint(0, 0), image);
+    painter.end();
+
+    return picture;
 }
-
 
 
 
