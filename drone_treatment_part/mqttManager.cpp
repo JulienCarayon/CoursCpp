@@ -1,4 +1,4 @@
-#include "mqttmanager.h"
+#include "mqttManager.h"
 
 MqttManager::MqttManager() : m_client{s_ADDRESS, s_CLIENT_ID}
 {
@@ -7,7 +7,7 @@ MqttManager::MqttManager() : m_client{s_ADDRESS, s_CLIENT_ID}
     }
 }
 
-bool MqttManager::initConnection()
+bool MqttManager::initConnection(void)
 {
     try
     {

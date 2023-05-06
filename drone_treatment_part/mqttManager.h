@@ -21,7 +21,7 @@ class Callback : public virtual mqtt::callback
 public:
     virtual void connection_lost(const string &cause)
     {
-        cout << "Connection lost" << endl;
+        cout << "Connection lost !" << endl;
         if (!cause.empty())
             std::cout << "\tcause: " << cause << std::endl;
     }
@@ -34,7 +34,7 @@ private:
 
 public:
     MqttManager();
-    bool initConnection();
+    bool initConnection(void);
     void publishData(QByteArray jsonData);
     void disconect();
     Callback callback;
