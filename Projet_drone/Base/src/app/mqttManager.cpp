@@ -102,7 +102,7 @@ void MqttManager::run()
                  emit MqttManager::lastMessage_signal(QString::fromStdString(lastMessage));
                  const QJsonObject Array = MqttManager::ObjectFromString(QString::fromStdString(lastMessage));
                  MqttManager::fromJson(Array);
-                 emit MqttManager::lastMessageDecoded_signal(QString::fromStdString(s_DECODED_IMAGE_PATH));
+                 emit MqttManager::lastMessageDecoded_signal(MqttManager::showData(QString::fromStdString(s_DECODED_IMAGE_PATH)));
                  MqttManager::fromJson(Array);
                  emit MqttManager::lastImage_signal(QString::fromStdString(s_DECODED_IMAGE_PATH));
             }
