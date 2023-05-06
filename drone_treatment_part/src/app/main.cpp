@@ -11,20 +11,19 @@ using namespace std;
 
 int main(int argc, char *argv[])
 {
-    QCoreApplication a(argc, argv);
     cout << "\t\tSTARTING PROCESS ...\n" << endl;
-
+    QCoreApplication a(argc, argv);
     ImageManager imageManager;
-    imageManager.encryptData();
-
+    MqttManager mqtt_manager;
     QJsonObject json_data;
+
+    imageManager.encryptData();
     json_data = imageManager.convertImagetoJson();
     QJsonDocument doc(json_data);
     QByteArray json_data_byte_array = doc.toJson();
 
-    // MQTT class
-    MqttManager mqtt_manager;
-    if (!mqtt_manager.initConnection()) {
+    if (!mqtt_manager.initConnection())
+    {
         cerr << "Error: failed to initiate MQTT connection" << endl;
         return 1;
     }

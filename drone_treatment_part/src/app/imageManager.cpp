@@ -11,33 +11,44 @@ void ImageManager::encryptData(void)
     cout << "\tdata : " << m_message.toStdString() << endl;
     QImage img(m_inputImageFilename);
     bool saved = false;
-    QString binary_m_message = messageToBinary(removeBackslash());
+    QString binary_message = messageToBinary(removeBackslash());
     int s32_bit_index = 0;
     int s32_width = img.width();
     int s32_height = img.height();
-    for (int s32_row = 0; s32_row < img.height(); s32_row++) {
-        for (int s32_col = 0; s32_col < img.width(); s32_col++) {
+    for (int s32_row = 0; s32_row < s32_height; s32_row++)
+    {
+        for (int s32_col = 0; s32_col < s32_width; s32_col++)
+        {
             QRgb rgb = img.pixel(s32_col, s32_row);
             int s32_red = qRed(rgb);
             int s32_green = qGreen(rgb);
             int s32_blue = qBlue(rgb);
-            if (s32_bit_index < binary_m_message.length()) {
-                s32_red = (s32_red & ~1) | (binary_m_message[s32_bit_index++].digitValue());
+
+            if (s32_bit_index < binary_message.length())
+            {
+                s32_red = (s32_red & ~1) | (binary_message[s32_bit_index++].digitValue());
             }
-            if (s32_bit_index < binary_m_message.length()) {
-                s32_green = (s32_green & ~1) | (binary_m_message[s32_bit_index++].digitValue());
+            if (s32_bit_index < binary_message.length())
+            {
+                s32_green = (s32_green & ~1) | (binary_message[s32_bit_index++].digitValue());
             }
-            if (s32_bit_index < binary_m_message.length()) {
-                s32_blue = (s32_blue & ~1) | (binary_m_message[s32_bit_index++].digitValue());
+            if (s32_bit_index < binary_message.length())
+            {
+                s32_blue = (s32_blue & ~1) | (binary_message[s32_bit_index++].digitValue());
             }
-            if (s32_row >= 0 && s32_row < s32_height && s32_col >= 0 && s32_col < s32_width) {
+            if (s32_row >= 0 && s32_row < s32_height && s32_col >= 0 && s32_col < s32_width)
+            {
                 img.setPixel(s32_col, s32_row, qRgb(s32_red, s32_green, s32_blue));
             }
-            if (s32_bit_index >= binary_m_message.length()) {
+            if (s32_bit_index >= binary_message.length())
+            {
                 saved = img.save(m_outputImageFilename);
-                if (!saved) {
+                if (!saved)
+                {
                     cout << "s32_bit_index -> Error saving image" << endl;
-                } else {
+                }
+                else
+                {
                     cout << "\tEncryption done !" <<endl;
                 }
                 return;
@@ -46,7 +57,8 @@ void ImageManager::encryptData(void)
     }
     saved = img.save(m_outputImageFilename);
 
-    if (!saved) {
+    if (!saved)
+    {
         cout << "Error saving image" << endl;
     } else {
         cout << "\tEncryption done !" <<endl;
@@ -61,7 +73,8 @@ QString ImageManager::removeBackslash(void)
 QString ImageManager::messageToBinary(QString m_message)
 {
     QString binary;
-    for (int s32_i = 0; s32_i < m_message.length(); s32_i++) {
+    for (int s32_i = 0; s32_i < m_message.length(); s32_i++)
+    {
         binary += QString("%1").arg(m_message[s32_i].unicode(), 8, 2, QChar('0'));
     }
     return binary + END_OF_MESSAGE_INDICATOR;

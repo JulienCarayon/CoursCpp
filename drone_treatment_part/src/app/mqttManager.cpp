@@ -2,7 +2,8 @@
 
 MqttManager::MqttManager() : m_client{s_ADDRESS, s_CLIENT_ID}
 {
-    if (s_ADDRESS.empty() || s_CLIENT_ID.empty()) {
+    if (s_ADDRESS.empty() || s_CLIENT_ID.empty())
+    {
         cerr << "Error: s_ADDRESS or s_CLIENT_ID is not initialized" << endl;
     }
 }
