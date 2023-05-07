@@ -5,20 +5,22 @@ DEPENDPATH  += $$PWD
 WIDGETS_DIR = "$$PWD/widgets"
 
 INCLUDEPATH += \
-    $$PWD/cmp/thread_element/
+    $$PWD/lib/paho.mqtt.cpp/
 
 SOURCES += \
+    $$PWD/imageManager.cpp \
     $$PWD/main.cpp\
-    $$PWD/mainwindow.cpp \
-    $$PWD/cmp/thread_element/thread_element.cpp
+    $$PWD/lib/paho.mqtt.cpp/src/*cpp \
+    $$PWD/mqttManager.cpp
 
 HEADERS += \
-    $$PWD/mainwindow.h \
-    $$PWD/cmp/thread_element/thread_element.h
+    $$PWD/imageManager.h \
+    $$PWD/mqttManager.h
 
 FORMS += \
-    $$PWD/mainwindow.ui
 
 RESOURCES += \
 
 DISTFILES += \
+
+LIBS += -L$$PWD/lib/paho.mqtt.cpp/ -lpaho-mqttpp3 -lpaho-mqtt3as
