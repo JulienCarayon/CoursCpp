@@ -35,7 +35,7 @@ int main()
         std::cout << "Connected" << std::endl;
 
         std::cout << "Sending message..." << std::endl;
-        mqtt::message_ptr pubmsg = mqtt::make_message(s_TOPIC, "coucou c'est l'homme le plus intelligent qui envoie un message\nPS : Merci ChatGPT");
+        mqtt::message_ptr pubmsg = mqtt::make_message(s_TOPIC, "Julien Carayon");
         pubmsg->set_qos(0);
         client.publish(pubmsg)->wait();
 
