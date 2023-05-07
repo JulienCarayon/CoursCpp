@@ -72,12 +72,29 @@ WHat it looks like on another MQTT client :
 ### Base UI
 
 #### Configure MQTT
+You can configure the following different elements :
+- Broker Adress
+- Topic
+- Client ID
+- QoS
+
+After configuration click on "Connect"
+
 ![image](https://user-images.githubusercontent.com/79545759/236670483-3a1716be-11ee-408a-bd88-c2f9db73fb6c.png)
 
 #### Base connect 
+This is what the interface looks like when connected.
+
+If you want to disconnect, click on "Disconnect"
 ![image](https://user-images.githubusercontent.com/79545759/236670544-e8ec5842-362f-4830-8ad3-1f04c6ed9be1.png)
 
 #### Base receives the image
+
+When receiving the message :
+- Display of data received (format : JSON)
+- Receonstruction of the image with JSON data
+- decoded message in image
+
 ![image](https://user-images.githubusercontent.com/79545759/236670561-b895cf8d-4929-4eb9-b140-548fd2eb0a2d.png)
 
 
