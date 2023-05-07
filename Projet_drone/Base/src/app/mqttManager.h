@@ -5,6 +5,9 @@
 #include <QThread>
 #include <QDebug>
 #include <mqtt/async_client.h>
+#include "imageManager.h"
+
+
 using namespace std;
 
 
@@ -18,17 +21,17 @@ class MqttManager: public QThread
 public:
 
     typedef enum{
-        Connect         = 0,
-        Connected       = 1,
-        Disconnect      = 2,
-        Disconnected    = 3
+        CONNECT         = 0,
+        CONNECTED       = 1,
+        DISCONNECT      = 2,
+        DISCONNECTED    = 3
     }State;
 
     MqttManager(QObject *parent);
-    string s_ADDRESS;// = "tcp://broker.emqx.io:1883";
-    string s_CLIENT_ID;// = "MQTT-Receiver";
-    string s_TOPIC;// = "/ynov/bordeaux/";
-    uint8_t Qos = 0;
+    string s_address;// = "tcp://broker.emqx.io:1883";
+    string s_clientid;// = "MQTT-Receiver";
+    string s_topic;// = "/ynov/bordeaux/";
+    uint8_t u8_qos = 0;
 
 
     State getState();
@@ -38,20 +41,21 @@ public:
     void fromJson(const QJsonObject &json);
     QJsonObject ObjectFromString(const QString &in);
 signals:
-    void lastMessage_signal(QString s_lastMessage);
-    void lastMessageDecoded_signal(QString s_lastDecodedMessage);
+    void lastMessage_signal(QString s_lastmessage);
+    void lastMessageDecoded_signal(QString s_lastdecodedmessage);
     void lastImage_signal(const QString s_filepath);
+
 
 protected:
     void run(void);
 
 private:
-//    int _counter;
-    const string s_DECODED_IMAGE_PATH = "decoded_image.png";
-    State currentState = Disconnected;
 
-    QString showData(QString inputImageFilename);
-    QString binaryToString(QString binary);
+    const string ms_DECODED_IMAGE_PATH = "decoded_image.png";
+    State m_currentState_t = DISCONNECTED;
+
+    QString showData(QString s_filepath);
+    QString binaryToString(QString s_binary);
 };
 
 #endif // THREADELEMENT_H

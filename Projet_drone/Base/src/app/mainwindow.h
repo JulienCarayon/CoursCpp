@@ -2,7 +2,16 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "mqttManager.h"
+
+#include "QDebug"
+#include "QFileDialog"
+//#include <QString>
+//#include <QImage>
+//#include <QPainter>
+//#include <QPicture>
+#include <QRegularExpression>
+#include <mqttManager.h>
+#include <imageManager.h>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class BaseWindow; }
@@ -16,29 +25,20 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
-    MqttManager *mqttManager;
-    string decode_message(const string& image_path);
-//    void decode_message(void);
+
 
 public slots:
-    void Connect(void);
-
-    void fillRawMessage(QString message);
-    void fillDecodedMessage(QString message);
+    void connectButton(void);
+    void fillRawMessage(QString s_message);
+    void fillDecodedMessage(QString s_message);
     void fillImage(QString s_filepath);
-private slots:
-
 
 private:
+    string ms_decodemessage(const string& s_imagepath);
+    MqttManager *mqttManager;
     Ui::BaseWindow *ui;
-//    void attrInit();
     void connectSignalsSlots();
-
-    void updateButtonState(MqttManager::State currentState);
-    void on_lineEditTopic_editingFinished(void);
-    void on_lineEditBroker_editingFinished(void);
-    void on_lineEditCliendId_editingFinished(void);
-
-    QPicture createQPictureFromPNG(const QString &filePath);
+    void updateButtonState(MqttManager::State currentstate_t);
+    QPicture createQPictureFromPNG(const QString &s_FILEPATH);
 };
 #endif // MAINWINDOW_H

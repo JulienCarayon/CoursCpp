@@ -10,12 +10,14 @@ INCLUDEPATH += \
 
 
 SOURCES += \
+    $$PWD/imageManager.cpp \
     $$PWD/main.cpp\
     $$PWD/mainwindow.cpp \
     $$PWD/lib/paho.mqtt.cpp/src/*.cpp \
     $$PWD/mqttManager.cpp
 
 HEADERS += \
+    $$PWD/imageManager.h \
     $$PWD/mainwindow.h \
     $$PWD/lib/paho.mqtt.cpp/src/mqtt \
     $$PWD/mqttManager.h

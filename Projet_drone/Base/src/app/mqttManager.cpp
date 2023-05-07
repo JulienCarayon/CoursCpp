@@ -11,19 +11,16 @@
 #include <QJsonDocument>  //pas utile ?
 #include <QByteArray>
 
+string s_lastmessage = "";
 
 using namespace std;
-
-string lastMessage = "";
 
 class Callback : public virtual mqtt::callback {
 public:
     void message_arrived(mqtt::const_message_ptr msg) override {
 
         std::cout << "Message received on topic " << msg->get_topic() << std::endl;
-        lastMessage = msg->to_string();
-//        cout << "Message content <START>" << msg->to_string() <<"<END>"<< std::endl;
-
+        s_lastmessage = msg->to_string();
     }
 
     virtual void connection_lost(const std::string& cause_ref) override {
@@ -40,43 +37,44 @@ public:
 MqttManager::MqttManager(QObject *parent): QThread(parent)
 {
     qDebug()<< "MqttManager::Constructor";
-    MqttManager::s_ADDRESS = "tcp://broker.emqx.io:1883" ;
-    MqttManager::s_CLIENT_ID = "MQTT-Receiver" ;
-    MqttManager::s_TOPIC= "/ynov/bordeaux/" ;
+    MqttManager::s_address = "tcp://broker.emqx.io:1883" ;
+    MqttManager::s_clientid = "MQTT-Receiver" ;
+    MqttManager::s_topic= "/ynov/bordeaux/" ;
 
 }
 
 MqttManager::State MqttManager::getState()
 {
-    return currentState;
+    return m_currentState_t;
 }
 
 void MqttManager::toggleState()
 {
 
-    if(getState()==Connected){
-        MqttManager::setState(Disconnect);
+    if(getState()==CONNECTED){
+        MqttManager::setState(DISCONNECTED);
     }
     else{
-        MqttManager::setState(Connect);
+        MqttManager::setState(CONNECT);
     }
 }
 
 
 void MqttManager::setState(State state)
 {
-    currentState = state;
+    m_currentState_t = state;
 }
 
 void MqttManager::run()
 {
+    ImageManager imageManager;
     std::cout << "MqttManager started"<< std::endl;
-    mqtt::async_client client_t(MqttManager::s_ADDRESS, MqttManager::s_CLIENT_ID);
-    string previousMessage = lastMessage;
+    mqtt::async_client client_t(MqttManager::s_address, MqttManager::s_clientid);
+    string s_previousmessage = s_lastmessage;
     try
     {
         while(1){
-            if(MqttManager::getState()==Connect){
+            if(MqttManager::getState()==CONNECT){
                 mqtt::connect_options conn_opts;
                 conn_opts.set_clean_session(true);
 
@@ -85,28 +83,28 @@ void MqttManager::run()
 
                 client_t.connect(conn_opts)->wait();
 
-                mqtt::topic mqtt_topic(client_t, MqttManager::s_TOPIC, MqttManager::Qos);
+                mqtt::topic mqtt_topic(client_t, MqttManager::s_topic, MqttManager::u8_qos);
                 mqtt_topic.subscribe()->wait();
-                MqttManager::setState(Connected);
+                MqttManager::setState(CONNECTED);
             }
-            if (MqttManager::getState() == Disconnect){
+            if (MqttManager::getState() == DISCONNECT){
                 client_t.disconnect()->wait();
-                MqttManager::setState(Disconnected);
+                MqttManager::setState(DISCONNECTED);
                 MqttManager::quit();
                 break;
             }
 
-            if(lastMessage != previousMessage){
-                 cout << "<NEW Message incoming START>" << lastMessage <<"<NEW Message incoming END>"<< std::endl;
+            if(s_lastmessage != s_previousmessage){
+                cout << "<NEW Message incoming START>" << s_lastmessage <<"<NEW Message incoming END>"<< std::endl;
 //                MqttManager::binaryToPngFile(QByteArray::fromStdString(lastMessage),QDir::currentPath().remove("/bin/release"));
-                 emit MqttManager::lastMessage_signal(QString::fromStdString(lastMessage));
-                 const QJsonObject Array = MqttManager::ObjectFromString(QString::fromStdString(lastMessage));
-                 MqttManager::fromJson(Array);
-                 emit MqttManager::lastMessageDecoded_signal(MqttManager::showData(QString::fromStdString(s_DECODED_IMAGE_PATH)));
-                 MqttManager::fromJson(Array);
-                 emit MqttManager::lastImage_signal(QString::fromStdString(s_DECODED_IMAGE_PATH));
+                emit MqttManager::lastMessage_signal(QString::fromStdString(s_lastmessage));
+                const QJsonObject Array = imageManager.ObjectFromString(QString::fromStdString(s_lastmessage));
+                imageManager.fromJson(Array);
+                emit MqttManager::lastMessageDecoded_signal(imageManager.showData(QString::fromStdString(ms_DECODED_IMAGE_PATH)));
+                emit MqttManager::lastImage_signal(QString::fromStdString(ms_DECODED_IMAGE_PATH));
+                s_previousmessage = s_lastmessage;
             }
-            previousMessage = lastMessage;
+
         }
     }
     catch (const mqtt::exception& exc_ref) {
@@ -116,73 +114,3 @@ void MqttManager::run()
 
 }
 
-QJsonObject MqttManager::ObjectFromString(const QString& in)
-{
-    QJsonObject obj;
-
-    QJsonDocument doc = QJsonDocument::fromJson(in.toUtf8());
-
-    // check validity of the document
-    if(!doc.isNull())
-    {
-        if(doc.isObject())
-        {
-            obj = doc.object();
-        }
-        else
-        {
-            qDebug() << "Document is not an object";
-        }
-    }
-    else
-    {
-        qDebug() << "Invalid JSON...\n" ;
-    }
-
-    return obj;
-}
-
-
-void MqttManager::fromJson(const QJsonObject& json)
-{
-    QByteArray imageDataDecoded = QByteArray::fromBase64(json["data"].toString().toUtf8());
-    QImage imageDecoded;
-    imageDecoded.loadFromData(imageDataDecoded, "PNG");
-
-    // Sauvegarde de l'image décodée dans un nouveau fichier PNG
-    QString newFilename = "decoded_image.png";
-    imageDecoded.save(newFilename, "PNG");
-}
-
-QString MqttManager::showData(QString inputImageFilename)
-{
-    QImage img(inputImageFilename);
-    QString binary_message;
-    for (int row = 0; row < img.height(); row++) {
-        for (int col = 0; col < img.width(); col++) {
-            QRgb rgb = img.pixel(col, row);
-            binary_message += QString::number(qRed(rgb) & 1);
-            if (binary_message.right(16) == "1111111111111110") {
-                 return binaryToString(binary_message.left(binary_message.length() - 16));
-            }
-            binary_message += QString::number(qGreen(rgb) & 1);
-            if (binary_message.right(16) == "1111111111111110") {
-                 return binaryToString(binary_message.left(binary_message.length() - 16));
-            }
-            binary_message += QString::number(qBlue(rgb) & 1);
-            if (binary_message.right(16) == "1111111111111110") {
-                 return binaryToString(binary_message.left(binary_message.length() - 16));
-            }
-        }
-    }
-    return binaryToString(binary_message);
-}
-
-QString MqttManager::binaryToString(QString binary)
-{
-    QString message;
-    for (int i = 0; i < binary.length(); i += 8) {
-        message += QChar(binary.mid(i, 8).toInt(nullptr, 2));
-    }
-    return message;
-}
