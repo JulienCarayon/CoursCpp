@@ -6,283 +6,333 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>928</width>
-    <height>579</height>
+    <width>939</width>
+    <height>593</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Base</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QGridLayout" name="gridLayout_3">
-    <item row="0" column="0">
-     <widget class="QWidget" name="widgetMqttSettings" native="true">
-      <layout class="QGridLayout" name="gridLayout">
-       <item row="2" column="1">
-        <spacer name="horizontalSpacerClientId">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>58</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item row="0" column="1">
-        <spacer name="horizontalSpacerBroker">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>77</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item row="2" column="2">
-        <widget class="QLineEdit" name="lineEditClientId">
-         <property name="minimumSize">
-          <size>
-           <width>300</width>
-           <height>25</height>
-          </size>
-         </property>
-         <property name="text">
-          <string>JuDoJo</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="2">
-        <widget class="QLineEdit" name="lineEditBroker">
-         <property name="minimumSize">
-          <size>
-           <width>220</width>
-           <height>25</height>
-          </size>
-         </property>
-         <property name="text">
-          <string>tcp://broker.emqx.io:1883</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="0">
-        <widget class="QLabel" name="labelBroker">
-         <property name="text">
-          <string>Broker Address: </string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="0">
-        <widget class="QLabel" name="labelTopic">
-         <property name="text">
-          <string>Topic</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="0">
-        <widget class="QLabel" name="labelClientId">
-         <property name="text">
-          <string>Cliend ID</string>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="0" colspan="2">
-        <spacer name="horizontalSpacer_2">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item row="1" column="1">
-        <spacer name="horizontalSpacerTopic">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>58</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item row="4" column="2">
-        <widget class="QPushButton" name="pushButton_2">
-         <property name="text">
-          <string>Connect</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="2">
-        <widget class="QLineEdit" name="lineEditTopic">
-         <property name="minimumSize">
-          <size>
-           <width>300</width>
-           <height>25</height>
-          </size>
-         </property>
-         <property name="text">
-          <string>/ynov/bordeaux/CoursCpp</string>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="0">
-        <widget class="QLabel" name="labelQos">
-         <property name="text">
-          <string>QoS</string>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="2">
-        <widget class="QSpinBox" name="spinBoxQos">
-         <property name="maximum">
-          <number>2</number>
-         </property>
-         <property name="value">
-          <number>2</number>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="1">
-        <spacer name="horizontalSpacer_3">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-      </layout>
-     </widget>
-    </item>
-    <item row="0" column="1">
-     <spacer name="horizontalSpacer">
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>40</width>
-        <height>20</height>
-       </size>
-      </property>
-     </spacer>
-    </item>
-    <item row="1" column="0" colspan="2">
-     <widget class="QWidget" name="widget" native="true">
-      <layout class="QGridLayout" name="gridLayout_2">
-       <item row="2" column="0" rowspan="2">
-        <widget class="QPlainTextEdit" name="plainTextEditRawMessage">
-         <property name="minimumSize">
-          <size>
-           <width>400</width>
-           <height>130</height>
-          </size>
-         </property>
-         <property name="readOnly">
-          <bool>true</bool>
-         </property>
-         <property name="plainText">
-          <string>Not connected.
+   <widget class="QWidget" name="widgetMqttSettings" native="true">
+    <property name="geometry">
+     <rect>
+      <x>9</x>
+      <y>9</y>
+      <width>442</width>
+      <height>256</height>
+     </rect>
+    </property>
+    <layout class="QGridLayout" name="gridLayout">
+     <item row="5" column="2">
+      <widget class="QPushButton" name="pushButton_2">
+       <property name="maximumSize">
+        <size>
+         <width>300</width>
+         <height>30</height>
+        </size>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">
 </string>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="1">
-        <widget class="QLabel" name="labelImage">
-         <property name="minimumSize">
-          <size>
-           <width>250</width>
-           <height>168</height>
-          </size>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-         <property name="textFormat">
-          <enum>Qt::PlainText</enum>
-         </property>
-         <property name="pixmap">
-          <pixmap resource="resources.qrc">:/interface/image/resources/images/image.png</pixmap>
-         </property>
-         <property name="scaledContents">
-          <bool>true</bool>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignJustify|Qt::AlignVCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="0" rowspan="2" colspan="2">
-        <widget class="QLabel" name="label_caca">
-         <property name="text">
-          <string>Raw MQTT Message</string>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="0">
-        <spacer name="verticalSpacer_2">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>20</width>
-           <height>162</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item row="6" column="0" colspan="2">
-        <widget class="QPlainTextEdit" name="plainTextEditDecodedMessage">
-         <property name="minimumSize">
-          <size>
-           <width>400</width>
-           <height>0</height>
-          </size>
-         </property>
-         <property name="readOnly">
-          <bool>true</bool>
-         </property>
-         <property name="plainText">
-          <string>Not connected.
+       </property>
+       <property name="text">
+        <string>Connect</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <spacer name="horizontalSpacerClientId">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>58</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item row="0" column="0">
+      <widget class="QLabel" name="labelBroker">
+       <property name="text">
+        <string>Broker Address: </string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <spacer name="horizontalSpacerBroker">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>77</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item row="3" column="0">
+      <widget class="QLabel" name="labelQos">
+       <property name="text">
+        <string>QoS</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <spacer name="horizontalSpacerTopic">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>58</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item row="5" column="0" colspan="2">
+      <spacer name="horizontalSpacer_2">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>100</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item row="2" column="2">
+      <widget class="QLineEdit" name="lineEditClientId">
+       <property name="minimumSize">
+        <size>
+         <width>300</width>
+         <height>25</height>
+        </size>
+       </property>
+       <property name="text">
+        <string>JuDoJo</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="2">
+      <widget class="QLineEdit" name="lineEditBroker">
+       <property name="minimumSize">
+        <size>
+         <width>220</width>
+         <height>25</height>
+        </size>
+       </property>
+       <property name="text">
+        <string>tcp://broker.emqx.io:1883</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="1">
+      <spacer name="horizontalSpacer_3">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="labelTopic">
+       <property name="text">
+        <string>Topic</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="2">
+      <widget class="QSpinBox" name="spinBoxQos">
+       <property name="maximum">
+        <number>2</number>
+       </property>
+       <property name="value">
+        <number>2</number>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="2">
+      <widget class="QLineEdit" name="lineEditTopic">
+       <property name="minimumSize">
+        <size>
+         <width>300</width>
+         <height>25</height>
+        </size>
+       </property>
+       <property name="text">
+        <string>/ynov/bordeaux/CoursCpp</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0">
+      <widget class="QLabel" name="labelClientId">
+       <property name="text">
+        <string>Cliend ID</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="widget" native="true">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>260</y>
+      <width>910</width>
+      <height>281</height>
+     </rect>
+    </property>
+    <widget class="QPlainTextEdit" name="plainTextEditRawMessage">
+     <property name="geometry">
+      <rect>
+       <x>9</x>
+       <y>32</y>
+       <width>400</width>
+       <height>130</height>
+      </rect>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>400</width>
+       <height>130</height>
+      </size>
+     </property>
+     <property name="readOnly">
+      <bool>true</bool>
+     </property>
+     <property name="plainText">
+      <string>Not connected.
 </string>
-         </property>
-        </widget>
-       </item>
-       <item row="5" column="0">
-        <widget class="QLabel" name="label">
-         <property name="text">
-          <string>Decoded MQTT Message</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-    </item>
-   </layout>
+     </property>
+    </widget>
+    <widget class="QLabel" name="labelImage">
+     <property name="geometry">
+      <rect>
+       <x>470</x>
+       <y>10</y>
+       <width>381</width>
+       <height>168</height>
+      </rect>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>250</width>
+       <height>168</height>
+      </size>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="textFormat">
+      <enum>Qt::PlainText</enum>
+     </property>
+     <property name="pixmap">
+      <pixmap resource="resources.qrc">:/interface/image/resources/images/image.png</pixmap>
+     </property>
+     <property name="scaledContents">
+      <bool>true</bool>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignJustify|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_caca">
+     <property name="geometry">
+      <rect>
+       <x>9</x>
+       <y>9</y>
+       <width>137</width>
+       <height>17</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Raw MQTT Message</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>170</y>
+       <width>169</width>
+       <height>17</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Decoded MQTT Message</string>
+     </property>
+    </widget>
+    <widget class="QPlainTextEdit" name="plainTextEditDecodedMessage">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>190</y>
+       <width>892</width>
+       <height>70</height>
+      </rect>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>400</width>
+       <height>0</height>
+      </size>
+     </property>
+     <property name="readOnly">
+      <bool>true</bool>
+     </property>
+     <property name="plainText">
+      <string>Not connected.
+</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QLabel" name="labelLogo">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>660</x>
+      <y>10</y>
+      <width>251</width>
+      <height>131</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap resource="resources.qrc">:/interface/image/resources/images/logo.png</pixmap>
+    </property>
+    <property name="scaledContents">
+     <bool>true</bool>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>928</width>
+     <width>939</width>
      <height>22</height>
     </rect>
    </property>
@@ -297,7 +347,7 @@
    <sender>pushButton_2</sender>
    <signal>pressed()</signal>
    <receiver>BaseWindow</receiver>
-   <slot>Connect()</slot>
+   <slot>connectButton()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>518</x>
@@ -314,5 +364,6 @@
   <signal>browseFileClicked()</signal>
   <slot>browseFile()</slot>
   <slot>Connect()</slot>
+  <slot>connectButton()</slot>
  </slots>
 </ui>
